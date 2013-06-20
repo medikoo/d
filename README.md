@@ -38,13 +38,13 @@ Object.defineProperties(Account.prototype, {
 });
 ```
 
-By default created descriptor follows characteristics of native ES5 properties, and defines values as:
+By default, created descriptor follow characteristics of native ES5 properties, and define values as:
 
 ```javascript
 { configurable: true, enumerable: false, writable: true }
 ```
 
-You can overwrite it, preceding value argument with instruction:
+You can overwrite it by preceding _value_ argument with instruction:
 ```javascript
 d('c', value); // { configurable: true, enumerable: false, writable: false }
 d('ce', value); // { configurable: true, enumerable: true, writable: false }
