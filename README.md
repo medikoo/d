@@ -1,4 +1,4 @@
-# D - Property descriptor factory for ECMAScript
+# D - Property descriptor factory
 
 _Originally derived from [es5-ext](https://github.com/medikoo/es5-ext) package._
 
@@ -9,13 +9,13 @@ var Account = function () {};
 Object.defineProperties(Account.prototype, {
   deposit: { value: function () {
       /* ... */
-    }, enumerable: false, writable: true, configurable: true },
+    }, configurable: true, enumerable: false, writable: true },
   whithdraw: { value: function () {
       /* ... */
-    }, enumerable: false, writable: true, configurable: true },
+    }, configurable: true, enumerable: false, writable: true },
   balance: { get: function () {
       /* ... */
-    }, enumerable: false, writable: true }
+    }, configurable: true, enumerable: false }
 });
 ```
 
@@ -40,20 +40,19 @@ Object.defineProperties(Account.prototype, {
 
 By default created descriptor follows characteristics of native ES5 properties, and defines values as:
 
-```json
-{ enumerable: false, configurable: true, writable: true }
+```javascript
+{ configurable: true, enumerable: false, writable: true }
 ```
 
 You can overwrite it, preceding value argument with instruction:
 ```javascript
-d('c', value); // { enumerable: false, writable: false, configurable: true }
-d('ec', value); // { enumerable: true, writable: false, configurable: true }
-d('e', value); // { enumerable: true, writable: false, configurable: false }
+d('c', value); // { configurable: true, enumerable: false, writable: false }
+d('ce', value); // { configurable: true, enumerable: true, writable: false }
+d('e', value); // { configurable: false, enumerable: true, writable: false }
 
 // Same way for get/set:
-
-d.gs('e', value); // { enumerable: true, configurable: false }
-``
+d.gs('e', value); // { configurable: false, enumerable: true }
+```
 
 ## Installation
 ### NPM
