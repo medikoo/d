@@ -38,7 +38,7 @@ Object.defineProperties(Account.prototype, {
 });
 ```
 
-By default, created descriptor follow characteristics of native ES5 properties, and define values as:
+By default, created descriptor follow characteristics of native ES5 properties, and defines values as:
 
 ```javascript
 { configurable: true, enumerable: false, writable: true }
