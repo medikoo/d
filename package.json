@@ -1,0 +1,31 @@
+{
+  "name": "d",
+  "version": "0.1.0",
+  "description": "Property descriptor factory",
+  "main": "index.js",
+  "scripts": {
+    "test": "node node_modules/tad/bin/tad"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/medikoo/d.git"
+  },
+  "keywords": [
+    "descriptor",
+    "es",
+    "ecmascript",
+    "ecma",
+    "property",
+    "descriptors",
+    "meta",
+    "properties"
+  ],
+  "dependencies": {
+    "es5-ext": "~0.9.2"
+  },
+  "devDependencies": {
+    "tad": "~0.1.16"
+  },
+  "author": "Mariusz Nowak <medikoo+d@medikoo.com> (http://www.medikoo.com/)",
+  "license": "MIT"
+}
