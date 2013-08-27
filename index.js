@@ -1,8 +1,8 @@
 'use strict';
 
-var isCallable = require('es5-ext/lib/Object/is-callable')
-  , callable   = require('es5-ext/lib/Object/valid-callable')
-  , contains   = require('es5-ext/lib/String/prototype/contains')
+var isCallable = require('es5-ext/object/is-callable')
+  , callable   = require('es5-ext/object/valid-callable')
+  , contains   = require('es5-ext/string/#/contains')
 
   , d;
 
