@@ -2,7 +2,7 @@
   "name": "d",
   "version": "0.1.0",
   "description": "Property descriptor factory",
-  "main": "index.js",
+  "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "scripts": {
     "test": "node node_modules/tad/bin/tad"
   },
@@ -26,6 +26,5 @@
   "devDependencies": {
     "tad": "~0.1.16"
   },
-  "author": "Mariusz Nowak <medikoo+d@medikoo.com> (http://www.medikoo.com/)",
   "license": "MIT"
 }
