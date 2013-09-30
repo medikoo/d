@@ -1,3 +1,4 @@
 'use strict';
 
-module.exports = require('./d');
+exports = module.exports = require('./d');
+exports.autoBind = require('./auto-bind');
