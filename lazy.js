@@ -10,7 +10,9 @@ var copy       = require('es5-ext/object/copy')
   , define;
 
 define = function (name, desc) {
-	var value = validValue(desc) && callable(desc.value), dgs;
+	var value, dgs;
+	validValue(desc);
+	value = callable(desc.value);
 	dgs = copy(desc);
 	delete dgs.writable;
 	delete dgs.value;
