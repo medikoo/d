@@ -1,7 +1,6 @@
 'use strict';
 
-var copy       = require('es5-ext/object/copy')
-  , map        = require('es5-ext/object/map')
+var map        = require('es5-ext/object/map')
   , callable   = require('es5-ext/object/valid-callable')
   , validValue = require('es5-ext/object/valid-value')
   , contains   = require('es5-ext/string/#/contains')
@@ -12,42 +11,54 @@ var copy       = require('es5-ext/object/copy')
 		value: null }
   , define;
 
-define = function (name, desc) {
-	var value, dgs, cacheName = desc.cacheName, expose;
-	validValue(desc);
-	value = callable(desc.value);
-	dgs = copy(desc);
-	delete dgs.writable;
-	delete dgs.value;
+define = function (name, options) {
+	var value, dgs, cacheName, desc;
+	options = Object(validValue(options));
+	cacheName = options.cacheName;
 	if (cacheName == null) cacheName = name;
+	delete options.cacheName;
+	value = callable(options.value);
+	delete options.value;
+	dgs = { configurabe: Boolean(options.configurable),
+		enumerable: Boolean(options.enumerable) };
 	dgs.get = function () {
 		if (name !== cacheName) {
 			if (hasOwnProperty.call(this, cacheName)) return this[cacheName];
-			cacheDesc.value = value.call(this);
+			cacheDesc.value = value.call(this, options);
 			defineProperty(this, cacheName, cacheDesc);
 			cacheDesc.value = null;
-			if (expose) defineProperty(this, name, desc);
+			if (desc) defineProperty(this, name, desc);
 			return this[cacheName];
 		}
 		if (hasOwnProperty.call(this, name)) return value;
-		desc.value = value.call(this);
+		desc.value = value.call(this, options);
 		defineProperty(this, name, desc);
 		desc.value = null;
 		return this[name];
 	};
-	if (!desc.desc) return dgs;
-	desc = {
-		configurable: contains.call(desc.desc, 'c'),
-		enumerable: contains.call(desc.desc, 'e'),
-		writable: contains.call(desc.desc, 'w')
-	};
-	if (cacheName === name) {
-		desc.value = null;
-	} else {
-		delete desc.writable;
-		desc.get = dgs.get;
+	if (options.desc) {
+		desc = {
+			configurable: contains.call(options.desc, 'c'),
+			enumerable: contains.call(options.desc, 'e')
+		};
+		if (cacheName === name) {
+			desc.writable = contains.call(options.desc, 'e');
+			desc.value = null;
+		} else {
+			desc.get = dgs.get;
+		}
+		delete options.desc;
+	} else if (cacheName === name) {
+		desc = {
+			configurable: Boolean(options.configurable),
+			enumerable: Boolean(options.enumerable),
+			writable: Boolean(options.writable),
+			value: null
+		};
 	}
-	expose = true;
+	delete options.configurable;
+	delete options.enumerable;
+	delete options.writable;
 	return dgs;
 };
 
