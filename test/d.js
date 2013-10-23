@@ -24,13 +24,6 @@ module.exports = function (t, a) {
 		dfgs: t.gs(dfg = function () {}, dfs = function () {})
 	});
 
-	a.throws(function () {
-		t.gs('', {});
-	}, "Not callable value");
-	a.throws(function () {
-		t.gs('', function () {}, true);
-	}, "Two values, second not callable");
-
 	return {
 		c: function (a) {
 			var d = getOwnPropertyDescriptor(o, 'c');
@@ -152,6 +145,38 @@ module.exports = function (t, a) {
 			a(d.configurable, true, "GS Configurable");
 			a(d.enumerable, false, "GS Enumerable");
 			a(d.writable, undefined, "GS Writable");
+		},
+		Options: {
+			v: function (a) {
+				var x = {}, d = t(x, { foo: true });
+				a.deep(d, { configurable: true, enumerable: false, writable: true,
+					value: x, foo: true }, "No descriptor");
+				d = t('c', 'foo', { marko: 'elo' });
+				a.deep(d, { configurable: true, enumerable: false, writable: false,
+					value: 'foo', marko: 'elo' }, "Descriptor");
+			},
+			gs: function (a) {
+				var gFn = function () {}, sFn = function () {}, d;
+				d = t.gs(gFn, sFn, { foo: true });
+				a.deep(d, { configurable: true, enumerable: false, get: gFn, set: sFn,
+					foo: true }, "No descriptor");
+				d = t.gs(null, sFn, { foo: true });
+				a.deep(d, { configurable: true, enumerable: false, get: undefined,
+					set: sFn, foo: true }, "No descriptor: Just set");
+				d = t.gs(gFn, { foo: true });
+				a.deep(d, { configurable: true, enumerable: false, get: gFn,
+					set: undefined, foo: true }, "No descriptor: Just get");
+
+				d = t.gs('e', gFn, sFn, { bar: true });
+				a.deep(d, { configurable: false, enumerable: true, get: gFn, set: sFn,
+					bar: true }, "Descriptor");
+				d = t.gs('e', null, sFn, { bar: true });
+				a.deep(d, { configurable: false, enumerable: true, get: undefined,
+					set: sFn, bar: true }, "Descriptor: Just set");
+				d = t.gs('e', gFn, { bar: true });
+				a.deep(d, { configurable: false, enumerable: true, get: gFn,
+					set: undefined, bar: true }, "Descriptor: Just get");
+			}
 		}
 	};
 };

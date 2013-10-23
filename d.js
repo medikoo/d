@@ -1,16 +1,20 @@
 'use strict';
 
-var isCallable = require('es5-ext/object/is-callable')
-  , callable   = require('es5-ext/object/valid-callable')
-  , contains   = require('es5-ext/string/#/contains')
+var assign        = require('es5-ext/object/assign')
+  , normalizeOpts = require('es5-ext/object/normalize-options')
+  , isCallable    = require('es5-ext/object/is-callable')
+  , contains      = require('es5-ext/string/#/contains')
 
   , d;
 
-d = module.exports = function (dscr, value) {
-	var c, e, w;
-	if (arguments.length < 2) {
+d = module.exports = function (dscr, value/*, options*/) {
+	var c, e, w, options, desc;
+	if ((arguments.length < 2) || (typeof dscr !== 'string')) {
+		options = value;
 		value = dscr;
 		dscr = null;
+	} else {
+		options = arguments[2];
 	}
 	if (dscr == null) {
 		c = w = true;
@@ -21,18 +25,30 @@ d = module.exports = function (dscr, value) {
 		w = contains.call(dscr, 'w');
 	}
 
-	return { value: value, configurable: c, enumerable: e, writable: w };
+	desc = { value: value, configurable: c, enumerable: e, writable: w };
+	return !options ? desc : assign(normalizeOpts(options), desc);
 };
 
-d.gs = function (dscr, get, set) {
-	var c, e;
-	if (isCallable(dscr)) {
-		set = (get == null) ? undefined : callable(get);
+d.gs = function (dscr, get, set/*, options*/) {
+	var c, e, options, desc;
+	if (typeof dscr !== 'string') {
+		options = set;
+		set = get;
 		get = dscr;
 		dscr = null;
 	} else {
-		get = (get == null) ? undefined : callable(get);
-		set = (set == null) ? undefined : callable(set);
+		options = arguments[3];
+	}
+	if (get == null) {
+		get = undefined;
+	} else if (!isCallable(get)) {
+		options = get;
+		get = set = undefined;
+	} else if (set == null) {
+		set = undefined;
+	} else if (!isCallable(set)) {
+		options = set;
+		set = undefined;
 	}
 	if (dscr == null) {
 		c = true;
@@ -42,5 +58,6 @@ d.gs = function (dscr, get, set) {
 		e = contains.call(dscr, 'e');
 	}
 
-	return { get: get, set: set, configurable: c, enumerable: e };
+	desc = { get: get, set: set, configurable: c, enumerable: e };
+	return !options ? desc : assign(normalizeOpts(options), desc);
 };
