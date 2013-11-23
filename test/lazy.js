@@ -33,4 +33,25 @@ module.exports = function (t, a) {
 	a.deep([o2.bar, o2.bar2, o2.bar3, o2.bar4, o2.bar5], [30, 25, 100, 112, 115],
 		"Extension Values");
 
+	Foo = function () {};
+	Object.defineProperties(Foo.prototype, t({
+		test: d('w', function () { return 'raz'; }),
+		test2: d('', function () { return 'raz'; }, { desc: 'w' }),
+		test3: d('', function () { return 'raz'; },
+			{ cacheName: '__test3__', desc: 'w' })
+	}));
+
+	o = new Foo();
+	o.test = 'marko';
+	a.deep(getOwnPropertyDescriptor(o, 'test'),
+		{ configurable: false, enumerable: false, writable: true, value: 'marko' },
+		"Set before get");
+	o.test2 = 'marko2';
+	a.deep(getOwnPropertyDescriptor(o, 'test2'),
+		{ configurable: false, enumerable: false, writable: true, value: 'marko2' },
+		"Set before get: Custom desc");
+	o.test3 = 'marko3';
+	a.deep(getOwnPropertyDescriptor(o, '__test3__'),
+		{ configurable: false, enumerable: false, writable: true, value: 'marko3' },
+		"Set before get: Custom cache name");
 };

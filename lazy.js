@@ -12,7 +12,7 @@ var map        = require('es5-ext/object/map')
   , define;
 
 define = function (name, options) {
-	var value, dgs, cacheName, desc;
+	var value, dgs, cacheName, desc, writable = false;
 	options = Object(validValue(options));
 	cacheName = options.cacheName;
 	if (cacheName == null) cacheName = name;
@@ -25,6 +25,7 @@ define = function (name, options) {
 		if (name !== cacheName) {
 			if (hasOwnProperty.call(this, cacheName)) return this[cacheName];
 			cacheDesc.value = value.call(this, options);
+			cacheDesc.writable = writable;
 			defineProperty(this, cacheName, cacheDesc);
 			cacheDesc.value = null;
 			if (desc) defineProperty(this, name, desc);
@@ -36,16 +37,22 @@ define = function (name, options) {
 		desc.value = null;
 		return this[name];
 	};
+	dgs.set = function (value) {
+		dgs.get.call(this);
+		this[cacheName] = value;
+	};
 	if (options.desc) {
 		desc = {
 			configurable: contains.call(options.desc, 'c'),
 			enumerable: contains.call(options.desc, 'e')
 		};
 		if (cacheName === name) {
-			desc.writable = contains.call(options.desc, 'e');
+			desc.writable = contains.call(options.desc, 'w');
 			desc.value = null;
 		} else {
+			writable = contains.call(options.desc, 'w');
 			desc.get = dgs.get;
+			desc.set = dgs.set;
 		}
 		delete options.desc;
 	} else if (cacheName === name) {
