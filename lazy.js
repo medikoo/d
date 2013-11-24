@@ -21,16 +21,15 @@ define = function (name, options) {
 	delete options.value;
 	dgs = { configurabe: Boolean(options.configurable),
 		enumerable: Boolean(options.enumerable) };
-	dgs.get = function () {
-		if (name !== cacheName) {
-			if (hasOwnProperty.call(this, cacheName)) return this[cacheName];
-			cacheDesc.value = value.call(this, options);
-			cacheDesc.writable = writable;
-			defineProperty(this, cacheName, cacheDesc);
-			cacheDesc.value = null;
-			if (desc) defineProperty(this, name, desc);
-			return this[cacheName];
-		}
+	dgs.get = (name !== cacheName) ? function () {
+		if (hasOwnProperty.call(this, cacheName)) return this[cacheName];
+		cacheDesc.value = value.call(this, options);
+		cacheDesc.writable = writable;
+		defineProperty(this, cacheName, cacheDesc);
+		cacheDesc.value = null;
+		if (desc) defineProperty(this, name, desc);
+		return this[cacheName];
+	} : function () {
 		if (hasOwnProperty.call(this, name)) return value;
 		desc.value = value.call(this, options);
 		defineProperty(this, name, desc);
