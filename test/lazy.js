@@ -38,7 +38,8 @@ module.exports = function (t, a) {
 		test: d('w', function () { return 'raz'; }),
 		test2: d('', function () { return 'raz'; }, { desc: 'w' }),
 		test3: d('', function () { return 'raz'; },
-			{ cacheName: '__test3__', desc: 'w' })
+			{ cacheName: '__test3__', desc: 'w' }),
+		test4: d('w', 'bar')
 	}));
 
 	o = new Foo();
@@ -54,4 +55,5 @@ module.exports = function (t, a) {
 	a.deep(getOwnPropertyDescriptor(o, '__test3__'),
 		{ configurable: false, enumerable: false, writable: true, value: 'marko3' },
 		"Set before get: Custom cache name");
+	a(o.test4, 'bar', "Resolve by value");
 };

@@ -1,10 +1,11 @@
 'use strict';
 
 var map        = require('es5-ext/object/map')
-  , callable   = require('es5-ext/object/valid-callable')
+  , isCallable = require('es5-ext/object/is-callable')
   , validValue = require('es5-ext/object/valid-value')
   , contains   = require('es5-ext/string/#/contains')
 
+  , call = Function.prototype.call
   , defineProperty = Object.defineProperty
   , hasOwnProperty = Object.prototype.hasOwnProperty
   , cacheDesc = { configurable: false, enumerable: false, writable: false,
@@ -12,18 +13,19 @@ var map        = require('es5-ext/object/map')
   , define;
 
 define = function (name, options) {
-	var value, dgs, cacheName, desc, writable = false;
+	var value, dgs, cacheName, desc, writable = false, resolvable;
 	options = Object(validValue(options));
 	cacheName = options.cacheName;
 	if (cacheName == null) cacheName = name;
 	delete options.cacheName;
-	value = callable(options.value);
+	value = options.value;
+	resolvable = isCallable(value);
 	delete options.value;
 	dgs = { configurabe: Boolean(options.configurable),
 		enumerable: Boolean(options.enumerable) };
 	dgs.get = (name !== cacheName) ? function () {
 		if (hasOwnProperty.call(this, cacheName)) return this[cacheName];
-		cacheDesc.value = value.call(this, options);
+		cacheDesc.value = resolvable ? call.call(value, this, options) : value;
 		cacheDesc.writable = writable;
 		defineProperty(this, cacheName, cacheDesc);
 		cacheDesc.value = null;
@@ -31,7 +33,7 @@ define = function (name, options) {
 		return this[cacheName];
 	} : function () {
 		if (hasOwnProperty.call(this, name)) return value;
-		desc.value = value.call(this, options);
+		desc.value = resolvable ? call.call(value, this, options) : value;
 		defineProperty(this, name, desc);
 		desc.value = null;
 		return this[name];
