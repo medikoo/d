@@ -15,6 +15,10 @@ module.exports = function (t, a) {
 			{ cacheName: '_bar5_', desc: 'e' })
 	}));
 
+	desc = getOwnPropertyDescriptor(Foo.prototype, 'bar');
+	a(desc.configurable, true, "Configurable: default");
+	a(desc.enumerable, false, "Enumerable: default");
+
 	o = new Foo();
 	a.deep([o.bar, o.bar2, o.bar3, o.bar4, o.bar5], [2, 25, 59, 71, 74],
 		"Values");

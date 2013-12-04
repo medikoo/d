@@ -21,7 +21,7 @@ define = function (name, options) {
 	value = options.value;
 	resolvable = isCallable(value);
 	delete options.value;
-	dgs = { configurabe: Boolean(options.configurable),
+	dgs = { configurable: Boolean(options.configurable),
 		enumerable: Boolean(options.enumerable) };
 	dgs.get = (name !== cacheName) ? function () {
 		if (hasOwnProperty.call(this, cacheName)) return this[cacheName];
