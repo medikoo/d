@@ -7,15 +7,18 @@ var map        = require('es5-ext/object/map')
 
   , call = Function.prototype.call
   , defineProperty = Object.defineProperty
+  , getPrototypeOf = Object.getPrototypeOf
   , hasOwnProperty = Object.prototype.hasOwnProperty
   , cacheDesc = { configurable: false, enumerable: false, writable: false,
 		value: null }
   , define;
 
 define = function (name, options) {
-	var value, dgs, cacheName, desc, writable = false, resolvable;
+	var value, dgs, cacheName, desc, writable = false, resolvable
+	  , flat;
 	options = Object(validValue(options));
 	cacheName = options.cacheName;
+	flat = options.flat;
 	if (cacheName == null) cacheName = name;
 	delete options.cacheName;
 	value = options.value;
@@ -23,21 +26,34 @@ define = function (name, options) {
 	delete options.value;
 	dgs = { configurable: Boolean(options.configurable),
 		enumerable: Boolean(options.enumerable) };
-	dgs.get = (name !== cacheName) ? function () {
-		if (hasOwnProperty.call(this, cacheName)) return this[cacheName];
-		cacheDesc.value = resolvable ? call.call(value, this, options) : value;
-		cacheDesc.writable = writable;
-		defineProperty(this, cacheName, cacheDesc);
-		cacheDesc.value = null;
-		if (desc) defineProperty(this, name, desc);
-		return this[cacheName];
-	} : function () {
-		if (hasOwnProperty.call(this, name)) return value;
-		desc.value = resolvable ? call.call(value, this, options) : value;
-		defineProperty(this, name, desc);
-		desc.value = null;
-		return this[name];
-	};
+	if (name !== cacheName) {
+		dgs.get = function () {
+			if (hasOwnProperty.call(this, cacheName)) return this[cacheName];
+			cacheDesc.value = resolvable ? call.call(value, this, options) : value;
+			cacheDesc.writable = writable;
+			defineProperty(this, cacheName, cacheDesc);
+			cacheDesc.value = null;
+			if (desc) defineProperty(this, name, desc);
+			return this[cacheName];
+		};
+	} else if (!flat) {
+		dgs.get = function () {
+			if (hasOwnProperty.call(this, name)) return value;
+			desc.value = resolvable ? call.call(value, this, options) : value;
+			defineProperty(this, name, desc);
+			desc.value = null;
+			return this[name];
+		};
+	} else {
+		dgs.get = function () {
+			var base = this;
+			while (!hasOwnProperty.call(base, name)) base = getPrototypeOf(base);
+			desc.value = resolvable ? call.call(value, base, options) : value;
+			defineProperty(base, name, desc);
+			desc.value = null;
+			return base[name];
+		};
+	}
 	dgs.set = function (value) {
 		dgs.get.call(this);
 		this[cacheName] = value;

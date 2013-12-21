@@ -60,4 +60,18 @@ module.exports = function (t, a) {
 		{ configurable: false, enumerable: false, writable: true, value: 'marko3' },
 		"Set before get: Custom cache name");
 	a(o.test4, 'bar', "Resolve by value");
+
+	a.h1("Flat");
+	Object.defineProperties(Foo.prototype, t({
+		flat: d(function () { return 'foo'; }, { flat: true }),
+		flat2: d(function () { return 'bar'; }, { flat: true })
+	}));
+
+	a.h2("Instance");
+	a(o.flat, 'foo', "Value");
+	a(o.hasOwnProperty('flat'), false, "Instance");
+	a(Foo.prototype.flat, 'foo', "Prototype");
+
+	a.h2("Direct");
+	a(Foo.prototype.flat2, 'bar');
 };
