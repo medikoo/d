@@ -7,6 +7,7 @@ var map        = require('es5-ext/object/map')
 
   , call = Function.prototype.call
   , defineProperty = Object.defineProperty
+  , getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
   , getPrototypeOf = Object.getPrototypeOf
   , hasOwnProperty = Object.prototype.hasOwnProperty
   , cacheDesc = { configurable: false, enumerable: false, writable: false,
@@ -37,16 +38,35 @@ define = function (name, options) {
 			return this[cacheName];
 		};
 	} else if (!flat) {
-		dgs.get = function () {
-			if (hasOwnProperty.call(this, name)) return value;
+		dgs.get = function self() {
+			var ownDesc;
+			if (hasOwnProperty.call(this, name)) {
+				ownDesc = getOwnPropertyDescriptor(this, name);
+				// It happens in Safari, that getter is still called after property
+				// was defined with a value, following workarounds that
+				if (ownDesc.hasOwnProperty('value')) return ownDesc.value;
+				if ((typeof ownDesc.get === 'function') && (ownDesc.get !== self)) {
+					return ownDesc.get.call(this);
+				}
+				return value;
+			}
 			desc.value = resolvable ? call.call(value, this, options) : value;
 			defineProperty(this, name, desc);
 			desc.value = null;
 			return this[name];
 		};
 	} else {
-		dgs.get = function () {
-			var base = this;
+		dgs.get = function self() {
+			var base = this, ownDesc;
+			if (hasOwnProperty.call(this, name)) {
+				// It happens in Safari, that getter is still called after property
+				// was defined with a value, following workarounds that
+				ownDesc = getOwnPropertyDescriptor(this, name);
+				if (ownDesc.hasOwnProperty('value')) return ownDesc.value;
+				if ((typeof ownDesc.get === 'function') && (ownDesc.get !== self)) {
+					return ownDesc.get.call(this);
+				}
+			}
 			while (!hasOwnProperty.call(base, name)) base = getPrototypeOf(base);
 			desc.value = resolvable ? call.call(value, base, options) : value;
 			defineProperty(base, name, desc);
