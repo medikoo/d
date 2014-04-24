@@ -1,6 +1,6 @@
 {
   "name": "d",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Property descriptor factory",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
   "scripts": {
@@ -21,10 +21,10 @@
     "properties"
   ],
   "dependencies": {
-    "es5-ext": "git://github.com/medikoo/es5-ext.git"
+    "es5-ext": "~0.10.2"
   },
   "devDependencies": {
-    "tad": "~0.1.16"
+    "tad": "~0.1.21"
   },
   "license": "MIT"
 }
