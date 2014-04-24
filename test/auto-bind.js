@@ -1,6 +1,6 @@
 'use strict';
 
-var d = require('../d');
+var d = require('../');
 
 module.exports = function (t, a) {
 	var o = Object.defineProperties({}, t({
