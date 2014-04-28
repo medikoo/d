@@ -3,9 +3,6 @@
   "version": "0.1.1",
   "description": "Property descriptor factory",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
-  "scripts": {
-    "test": "node node_modules/tad/bin/tad"
-  },
   "repository": {
     "type": "git",
     "url": "git://github.com/medikoo/d.git"
@@ -25,6 +22,9 @@
   },
   "devDependencies": {
     "tad": "~0.1.21"
+  },
+  "scripts": {
+    "test": "node node_modules/tad/bin/tad"
   },
   "license": "MIT"
 }
