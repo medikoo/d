@@ -61,7 +61,6 @@ d.gs('e', value); // { configurable: false, enumerable: true }
 	
 To port it to Browser or any other (non CJS) environment, use your favorite CJS bundler. No favorite yet? Try: [Browserify](http://browserify.org/), [Webmake](https://github.com/medikoo/modules-webmake) or [Webpack](http://webpack.github.io/)
 
-
 ### Other utilities
 
 #### autoBind(obj, props) _(d/auto-bind)_
