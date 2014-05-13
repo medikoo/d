@@ -3,10 +3,6 @@
   "version": "0.1.1",
   "description": "Property descriptor factory",
   "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/medikoo/d.git"
-  },
   "keywords": [
     "descriptor",
     "es",
@@ -17,6 +13,10 @@
     "meta",
     "properties"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/medikoo/d.git"
+  },
   "dependencies": {
     "es5-ext": "~0.10.2"
   },
