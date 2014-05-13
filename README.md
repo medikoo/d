@@ -1,5 +1,5 @@
 # D
-##Property descriptor factory
+## Property descriptor factory
 
 _Originally derived from [es5-ext](https://github.com/medikoo/es5-ext) package._
 
