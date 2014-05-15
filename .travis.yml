@@ -4,6 +4,9 @@ node_js:
   - 0.10
   - 0.11
 
+before_install:
+  - mkdir node_modules; ln -s ../ node_modules/d
+
 notifications:
   email:
     - medikoo+d@medikoo.com
