@@ -72,9 +72,9 @@ var d = require('d');
 var autoBind = require('d/auto-bind');
 
 var Foo = function () { this._count = 0; };
-autoBind(Foo.prototype, {
+Object.defineProperties(Foo.prototype, autoBind({
   increment: d(function () { ++this._count; });
-});
+}));
 
 var foo = new Foo();
 
@@ -91,9 +91,9 @@ var d = require('d');
 var lazy = require('d/lazy');
 
 var Foo = function () {};
-lazy(Foo.prototype, {
+Object.defineProperties(Foo.prototype, lazy({
   items: d(function () { return []; })
-});
+}));
 
 var foo = new Foo();
 foo.items.push(1, 2); // foo.items array created
