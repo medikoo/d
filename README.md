@@ -96,7 +96,7 @@ Object.defineProperties(Foo.prototype, lazy({
 }));
 
 var foo = new Foo();
-foo.items.push(1, 2); // foo.items array created
+foo.items.push(1, 2); // foo.items array created and defined directly on foo
 ```
 
 ## Tests [![Build Status](https://travis-ci.org/medikoo/d.png)](https://travis-ci.org/medikoo/d)
