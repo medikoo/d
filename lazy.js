@@ -75,6 +75,9 @@ define = function (name, options) {
 		};
 	}
 	dgs.set = function (value) {
+		if (hasOwnProperty.call(this, name)) {
+			throw new TypeError("Cannot assign to lazy defined '" + name + "' property of " + this);
+		}
 		dgs.get.call(this);
 		this[cacheName] = value;
 	};
