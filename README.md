@@ -11,7 +11,7 @@ Object.defineProperties(Account.prototype, {
   deposit: { value: function () {
       /* ... */
     }, configurable: true, enumerable: false, writable: true },
-  whithdraw: { value: function () {
+  withdraw: { value: function () {
       /* ... */
     }, configurable: true, enumerable: false, writable: true },
   balance: { get: function () {
@@ -30,7 +30,7 @@ Object.defineProperties(Account.prototype, {
   deposit: d(function () {
     /* ... */
   }),
-  whithdraw: d(function () {
+  withdraw: d(function () {
     /* ... */
   }),
   balance: d.gs(function () {
