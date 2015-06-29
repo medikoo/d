@@ -17,7 +17,7 @@ define = function (name, desc, options) {
 	delete dgs.writable;
 	delete dgs.value;
 	dgs.get = function () {
-		if (hasOwnProperty.call(this, name)) return value;
+		if (!options.overwriteDefinition && hasOwnProperty.call(this, name)) return value;
 		desc.value = bind.call(value, options.resolveContext ? options.resolveContext(this) : this);
 		defineProperty(this, name, desc);
 		return this[name];
@@ -26,7 +26,7 @@ define = function (name, desc, options) {
 };
 
 module.exports = function (props/*, options*/) {
-	var options = normalizeOptions(arguments[1])
+	var options = normalizeOptions(arguments[1]);
 	if (options.resolveContext != null) ensureCallable(options.resolveContext);
 	return map(props, function (desc, name) { return define(name, desc, options); });
 };
