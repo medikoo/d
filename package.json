@@ -17,6 +17,7 @@
     "type": "git",
     "url": "git://github.com/medikoo/d.git"
   },
+  "main": "index.js",
   "dependencies": {
     "es5-ext": "^0.10.9"
   },
