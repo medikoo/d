@@ -1,34 +1,37 @@
 {
-  "name": "d",
-  "version": "1.0.0",
-  "description": "Property descriptor factory",
-  "author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
-  "keywords": [
-    "descriptor",
-    "es",
-    "ecmascript",
-    "ecma",
-    "property",
-    "descriptors",
-    "meta",
-    "properties"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git://github.com/medikoo/d.git"
-  },
-  "dependencies": {
-    "es5-ext": "^0.10.50"
-  },
-  "devDependencies": {
-    "tad": "^2.0.1",
-    "xlint": "^0.2.2",
-    "xlint-jslint-medikoo": "^0.1.4"
-  },
-  "scripts": {
-    "lint": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --no-cache --no-stream",
-    "lint-console": "node node_modules/xlint/bin/xlint --linter=node_modules/xlint-jslint-medikoo/index.js --watch",
-    "test": "node node_modules/tad/bin/tad"
-  },
-  "license": "MIT"
+	"name": "d",
+	"version": "1.0.0",
+	"description": "Property descriptor factory",
+	"author": "Mariusz Nowak <medyk@medikoo.com> (http://www.medikoo.com/)",
+	"keywords": [
+		"descriptor",
+		"es",
+		"ecmascript",
+		"ecma",
+		"property",
+		"descriptors",
+		"meta",
+		"properties"
+	],
+	"repository": {
+		"type": "git",
+		"url": "git://github.com/medikoo/d.git"
+	},
+	"dependencies": {
+		"es5-ext": "^0.10.50"
+	},
+	"devDependencies": {
+		"eslint": "^5.16.0",
+		"eslint-config-medikoo": "^2.2.0",
+		"tad": "^2.0.1"
+	},
+	"eslintConfig": {
+		"extends": "medikoo/es5",
+		"root": true
+	},
+	"scripts": {
+		"lint": "eslint --ignore-path=.gitignore .",
+		"test": "node node_modules/tad/bin/tad"
+	},
+	"license": "MIT"
 }
