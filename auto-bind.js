@@ -1,11 +1,11 @@
-'use strict';
+"use strict";
 
-var copy             = require('es5-ext/object/copy')
-  , normalizeOptions = require('es5-ext/object/normalize-options')
-  , ensureCallable   = require('es5-ext/object/valid-callable')
-  , map              = require('es5-ext/object/map')
-  , callable         = require('es5-ext/object/valid-callable')
-  , validValue       = require('es5-ext/object/valid-value')
+var copy             = require("es5-ext/object/copy")
+  , normalizeOptions = require("es5-ext/object/normalize-options")
+  , ensureCallable   = require("es5-ext/object/valid-callable")
+  , map              = require("es5-ext/object/map")
+  , callable         = require("es5-ext/object/valid-callable")
+  , validValue       = require("es5-ext/object/valid-value")
 
   , bind = Function.prototype.bind, defineProperty = Object.defineProperty
   , hasOwnProperty = Object.prototype.hasOwnProperty

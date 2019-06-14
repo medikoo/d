@@ -1,16 +1,18 @@
-'use strict';
+"use strict";
 
-var map        = require('es5-ext/object/map')
-  , isCallable = require('es5-ext/object/is-callable')
-  , validValue = require('es5-ext/object/valid-value')
-  , contains   = require('es5-ext/string/#/contains')
+var map        = require("es5-ext/object/map")
+  , isCallable = require("es5-ext/object/is-callable")
+  , validValue = require("es5-ext/object/valid-value")
+  , contains   = require("es5-ext/string/#/contains")
 
   , call = Function.prototype.call
   , defineProperty = Object.defineProperty
   , getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
   , getPrototypeOf = Object.getPrototypeOf
   , hasOwnProperty = Object.prototype.hasOwnProperty
-  , cacheDesc = { configurable: false, enumerable: false, writable: false,
+  , cacheDesc = { configurable: false,
+enumerable: false,
+writable: false,
 		value: null }
   , define;
 
@@ -46,8 +48,8 @@ define = function (name, options) {
 				// was defined with a value, following workarounds that
 				// While in IE11 it may happen that here ownDesc is undefined (go figure)
 				if (ownDesc) {
-					if (ownDesc.hasOwnProperty('value')) return ownDesc.value;
-					if ((typeof ownDesc.get === 'function') && (ownDesc.get !== self)) {
+					if (ownDesc.hasOwnProperty("value")) return ownDesc.value;
+					if ((typeof ownDesc.get === "function") && (ownDesc.get !== self)) {
 						return ownDesc.get.call(this);
 					}
 					return value;
@@ -65,8 +67,8 @@ define = function (name, options) {
 				// It happens in Safari, that getter is still called after property
 				// was defined with a value, following workarounds that
 				ownDesc = getOwnPropertyDescriptor(this, name);
-				if (ownDesc.hasOwnProperty('value')) return ownDesc.value;
-				if ((typeof ownDesc.get === 'function') && (ownDesc.get !== self)) {
+				if (ownDesc.hasOwnProperty("value")) return ownDesc.value;
+				if ((typeof ownDesc.get === "function") && (ownDesc.get !== self)) {
 					return ownDesc.get.call(this);
 				}
 			}
@@ -86,14 +88,14 @@ define = function (name, options) {
 	};
 	if (options.desc) {
 		desc = {
-			configurable: contains.call(options.desc, 'c'),
-			enumerable: contains.call(options.desc, 'e')
+			configurable: contains.call(options.desc, "c"),
+			enumerable: contains.call(options.desc, "e")
 		};
 		if (cacheName === name) {
-			desc.writable = contains.call(options.desc, 'w');
+			desc.writable = contains.call(options.desc, "w");
 			desc.value = null;
 		} else {
-			writable = contains.call(options.desc, 'w');
+			writable = contains.call(options.desc, "w");
 			desc.get = dgs.get;
 			desc.set = dgs.set;
 		}

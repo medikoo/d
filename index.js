@@ -1,15 +1,15 @@
-'use strict';
+"use strict";
 
-var assign        = require('es5-ext/object/assign')
-  , normalizeOpts = require('es5-ext/object/normalize-options')
-  , isCallable    = require('es5-ext/object/is-callable')
-  , contains      = require('es5-ext/string/#/contains')
+var assign        = require("es5-ext/object/assign")
+  , normalizeOpts = require("es5-ext/object/normalize-options")
+  , isCallable    = require("es5-ext/object/is-callable")
+  , contains      = require("es5-ext/string/#/contains")
 
   , d;
 
 d = module.exports = function (dscr, value/*, options*/) {
 	var c, e, w, options, desc;
-	if ((arguments.length < 2) || (typeof dscr !== 'string')) {
+	if ((arguments.length < 2) || (typeof dscr !== "string")) {
 		options = value;
 		value = dscr;
 		dscr = null;
@@ -20,9 +20,9 @@ d = module.exports = function (dscr, value/*, options*/) {
 		c = w = true;
 		e = false;
 	} else {
-		c = contains.call(dscr, 'c');
-		e = contains.call(dscr, 'e');
-		w = contains.call(dscr, 'w');
+		c = contains.call(dscr, "c");
+		e = contains.call(dscr, "e");
+		w = contains.call(dscr, "w");
 	}
 
 	desc = { value: value, configurable: c, enumerable: e, writable: w };
@@ -31,7 +31,7 @@ d = module.exports = function (dscr, value/*, options*/) {
 
 d.gs = function (dscr, get, set/*, options*/) {
 	var c, e, options, desc;
-	if (typeof dscr !== 'string') {
+	if (typeof dscr !== "string") {
 		options = set;
 		set = get;
 		get = dscr;
@@ -54,8 +54,8 @@ d.gs = function (dscr, get, set/*, options*/) {
 		c = true;
 		e = false;
 	} else {
-		c = contains.call(dscr, 'c');
-		e = contains.call(dscr, 'e');
+		c = contains.call(dscr, "c");
+		e = contains.call(dscr, "e");
 	}
 
 	desc = { get: get, set: set, configurable: c, enumerable: e };
