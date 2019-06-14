@@ -1,24 +1,24 @@
 "use strict";
 
-var map        = require("es5-ext/object/map")
-  , isCallable = require("es5-ext/object/is-callable")
-  , validValue = require("es5-ext/object/valid-value")
-  , contains   = require("es5-ext/string/#/contains")
-
-  , call = Function.prototype.call
-  , defineProperty = Object.defineProperty
+var map                      = require("es5-ext/object/map")
+  , isCallable               = require("es5-ext/object/is-callable")
+  , validValue               = require("es5-ext/object/valid-value")
+  , contains                 = require("es5-ext/string/#/contains")
+  , call                     = Function.prototype.call
+  , defineProperty           = Object.defineProperty
   , getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
-  , getPrototypeOf = Object.getPrototypeOf
-  , hasOwnProperty = Object.prototype.hasOwnProperty
-  , cacheDesc = { configurable: false,
-enumerable: false,
-writable: false,
-		value: null }
+  , getPrototypeOf           = Object.getPrototypeOf
+  , hasOwnProperty           = Object.prototype.hasOwnProperty
+  , cacheDesc                = {
+		configurable: false,
+		enumerable: false,
+		writable: false,
+		value: null
+	}
   , define;
 
 define = function (name, options) {
-	var value, dgs, cacheName, desc, writable = false, resolvable
-	  , flat;
+	var value, dgs, cacheName, desc, writable = false, resolvable, flat;
 	options = Object(validValue(options));
 	cacheName = options.cacheName;
 	flat = options.flat;
@@ -27,8 +27,7 @@ define = function (name, options) {
 	value = options.value;
 	resolvable = isCallable(value);
 	delete options.value;
-	dgs = { configurable: Boolean(options.configurable),
-		enumerable: Boolean(options.enumerable) };
+	dgs = { configurable: Boolean(options.configurable), enumerable: Boolean(options.enumerable) };
 	if (name !== cacheName) {
 		dgs.get = function () {
 			if (hasOwnProperty.call(this, cacheName)) return this[cacheName];
@@ -49,7 +48,7 @@ define = function (name, options) {
 				// While in IE11 it may happen that here ownDesc is undefined (go figure)
 				if (ownDesc) {
 					if (ownDesc.hasOwnProperty("value")) return ownDesc.value;
-					if ((typeof ownDesc.get === "function") && (ownDesc.get !== self)) {
+					if (typeof ownDesc.get === "function" && ownDesc.get !== self) {
 						return ownDesc.get.call(this);
 					}
 					return value;
@@ -68,7 +67,7 @@ define = function (name, options) {
 				// was defined with a value, following workarounds that
 				ownDesc = getOwnPropertyDescriptor(this, name);
 				if (ownDesc.hasOwnProperty("value")) return ownDesc.value;
-				if ((typeof ownDesc.get === "function") && (ownDesc.get !== self)) {
+				if (typeof ownDesc.get === "function" && ownDesc.get !== self) {
 					return ownDesc.get.call(this);
 				}
 			}

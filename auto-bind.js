@@ -6,9 +6,9 @@ var copy             = require("es5-ext/object/copy")
   , map              = require("es5-ext/object/map")
   , callable         = require("es5-ext/object/valid-callable")
   , validValue       = require("es5-ext/object/valid-value")
-
-  , bind = Function.prototype.bind, defineProperty = Object.defineProperty
-  , hasOwnProperty = Object.prototype.hasOwnProperty
+  , bind             = Function.prototype.bind
+  , defineProperty   = Object.defineProperty
+  , hasOwnProperty   = Object.prototype.hasOwnProperty
   , define;
 
 define = function (name, desc, options) {

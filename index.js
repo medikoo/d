@@ -4,12 +4,11 @@ var assign        = require("es5-ext/object/assign")
   , normalizeOpts = require("es5-ext/object/normalize-options")
   , isCallable    = require("es5-ext/object/is-callable")
   , contains      = require("es5-ext/string/#/contains")
-
   , d;
 
 d = module.exports = function (dscr, value/*, options*/) {
 	var c, e, w, options, desc;
-	if ((arguments.length < 2) || (typeof dscr !== "string")) {
+	if (arguments.length < 2 || typeof dscr !== "string") {
 		options = value;
 		value = dscr;
 		dscr = null;

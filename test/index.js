@@ -3,25 +3,24 @@
 var getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor;
 
 module.exports = function (t, a) {
-	var o, c, cg, cs, ce, ceg, ces, cew, cw, e, eg, es, ew, v, vg, vs, w, df, dfg
-	  , dfs;
+	var o, c, cg, cs, ce, ceg, ces, cew, cw, e, eg, es, ew, v, vg, vs, w, df, dfg, dfs;
 
 	o = Object.create(Object.prototype, {
-		c: t("c", c = {}),
-		cgs: t.gs("c", cg = function () {}, cs = function () {}),
-		ce: t("ce", ce = {}),
-		cegs: t.gs("ce", ceg = function () {}, ces = function () {}),
-		cew: t("cew", cew = {}),
-		cw: t("cw", cw = {}),
-		e: t("e", e = {}),
-		egs: t.gs("e", eg = function () {}, es = function () {}),
-		ew: t("ew", ew = {}),
-		v: t("", v = {}),
-		vgs: t.gs("", vg = function () {}, vs = function () {}),
-		w: t("w", w = {}),
+		c: t("c", (c = {})),
+		cgs: t.gs("c", (cg = function () {}), (cs = function () {})),
+		ce: t("ce", (ce = {})),
+		cegs: t.gs("ce", (ceg = function () {}), (ces = function () {})),
+		cew: t("cew", (cew = {})),
+		cw: t("cw", (cw = {})),
+		e: t("e", (e = {})),
+		egs: t.gs("e", (eg = function () {}), (es = function () {})),
+		ew: t("ew", (ew = {})),
+		v: t("", (v = {})),
+		vgs: t.gs("", (vg = function () {}), (vs = function () {})),
+		w: t("w", (w = {})),
 
-		df: t(df = {}),
-		dfgs: t.gs(dfg = function () {}, dfs = function () {})
+		df: t((df = {})),
+		dfgs: t.gs((dfg = function () {}), (dfs = function () {}))
 	});
 
 	return {
@@ -149,57 +148,61 @@ module.exports = function (t, a) {
 		Options: {
 			v: function (a) {
 				var x = {}, d = t(x, { foo: true });
-				a.deep(d, { configurable: true,
-enumerable: false,
-writable: true,
-					value: x,
-foo: true }, "No descriptor");
+				a.deep(
+					d,
+					{ configurable: true, enumerable: false, writable: true, value: x, foo: true },
+					"No descriptor"
+				);
 				d = t("c", "foo", { marko: "elo" });
-				a.deep(d, { configurable: true,
-enumerable: false,
-writable: false,
-					value: "foo",
-marko: "elo" }, "Descriptor");
+				a.deep(
+					d,
+					{
+						configurable: true,
+						enumerable: false,
+						writable: false,
+						value: "foo",
+						marko: "elo"
+					},
+					"Descriptor"
+				);
 			},
 			gs: function (a) {
 				var gFn = function () {}, sFn = function () {}, d;
 				d = t.gs(gFn, sFn, { foo: true });
-				a.deep(d, { configurable: true,
-enumerable: false,
-get: gFn,
-set: sFn,
-					foo: true }, "No descriptor");
+				a.deep(
+					d, { configurable: true, enumerable: false, get: gFn, set: sFn, foo: true },
+					"No descriptor"
+				);
 				d = t.gs(null, sFn, { foo: true });
-				a.deep(d, { configurable: true,
-enumerable: false,
-get: undefined,
-					set: sFn,
-foo: true }, "No descriptor: Just set");
+				a.deep(
+					d,
+					{ configurable: true, enumerable: false, get: undefined, set: sFn, foo: true },
+					"No descriptor: Just set"
+				);
 				d = t.gs(gFn, { foo: true });
-				a.deep(d, { configurable: true,
-enumerable: false,
-get: gFn,
-					set: undefined,
-foo: true }, "No descriptor: Just get");
+				a.deep(
+					d,
+					{ configurable: true, enumerable: false, get: gFn, set: undefined, foo: true },
+					"No descriptor: Just get"
+				);
 
 				d = t.gs("e", gFn, sFn, { bar: true });
-				a.deep(d, { configurable: false,
-enumerable: true,
-get: gFn,
-set: sFn,
-					bar: true }, "Descriptor");
+				a.deep(
+					d, { configurable: false, enumerable: true, get: gFn, set: sFn, bar: true },
+					"Descriptor"
+				);
 				d = t.gs("e", null, sFn, { bar: true });
-				a.deep(d, { configurable: false,
-enumerable: true,
-get: undefined,
-					set: sFn,
-bar: true }, "Descriptor: Just set");
+				a.deep(
+					d,
+					{ configurable: false, enumerable: true, get: undefined, set: sFn, bar: true },
+					"Descriptor: Just set"
+				);
 				d = t.gs("e", gFn, { bar: true });
-				a.deep(d, { configurable: false,
-enumerable: true,
-get: gFn,
-					set: undefined,
-bar: true }, "Descriptor: Just get");
+				a.deep(
+					d,
+					{ configurable: false, enumerable: true, get: gFn, set: undefined, bar: true },
+					"Descriptor: Just get"
+				);
 			}
 		}
 	};
