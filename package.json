@@ -18,10 +18,10 @@
     "url": "git://github.com/medikoo/d.git"
   },
   "dependencies": {
-    "es5-ext": "^0.10.9"
+    "es5-ext": "^0.10.50"
   },
   "devDependencies": {
-    "tad": "^0.2.4",
+    "tad": "^0.2.8",
     "xlint": "^0.2.2",
     "xlint-jslint-medikoo": "^0.1.4"
   },
