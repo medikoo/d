@@ -23,7 +23,7 @@
 	},
 	"devDependencies": {
 		"eslint": "^5.16.0",
-		"eslint-config-medikoo": "^2.2.0",
+		"eslint-config-medikoo": "^2.3.0",
 		"git-list-updated": "^1.1.2",
 		"husky": "^2.4.1",
 		"lint-staged": "^8.2.1",
