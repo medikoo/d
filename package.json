@@ -18,7 +18,8 @@
 		"url": "git://github.com/medikoo/d.git"
 	},
 	"dependencies": {
-		"es5-ext": "^0.10.50"
+		"es5-ext": "^0.10.50",
+		"type": "^1.0.1"
 	},
 	"devDependencies": {
 		"eslint": "^5.16.0",

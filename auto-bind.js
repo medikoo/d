@@ -1,11 +1,11 @@
 "use strict";
 
-var copy             = require("es5-ext/object/copy")
-  , normalizeOptions = require("es5-ext/object/normalize-options")
-  , ensureCallable   = require("es5-ext/object/valid-callable")
-  , map              = require("es5-ext/object/map")
-  , callable         = require("es5-ext/object/valid-callable")
-  , validValue       = require("es5-ext/object/valid-value");
+var isValue             = require("type/value/is")
+  , ensureValue         = require("type/value/ensure")
+  , ensurePlainFunction = require("type/plain-function/ensure")
+  , copy                = require("es5-ext/object/copy")
+  , normalizeOptions    = require("es5-ext/object/normalize-options")
+  , map                 = require("es5-ext/object/map");
 
 var bind = Function.prototype.bind
   , defineProperty = Object.defineProperty
@@ -13,7 +13,7 @@ var bind = Function.prototype.bind
   , define;
 
 define = function (name, desc, options) {
-	var value = validValue(desc) && callable(desc.value), dgs;
+	var value = ensureValue(desc) && ensurePlainFunction(desc.value), dgs;
 	dgs = copy(desc);
 	delete dgs.writable;
 	delete dgs.value;
@@ -28,6 +28,6 @@ define = function (name, desc, options) {
 
 module.exports = function (props/*, options*/) {
 	var options = normalizeOptions(arguments[1]);
-	if (options.resolveContext != null) ensureCallable(options.resolveContext);
+	if (isValue(options.resolveContext)) ensurePlainFunction(options.resolveContext);
 	return map(props, function (desc, name) { return define(name, desc, options); });
 };

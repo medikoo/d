@@ -1,31 +1,28 @@
 "use strict";
 
-var map                      = require("es5-ext/object/map")
-  , isCallable               = require("es5-ext/object/is-callable")
-  , validValue               = require("es5-ext/object/valid-value")
-  , contains                 = require("es5-ext/string/#/contains")
-  , call                     = Function.prototype.call
-  , defineProperty           = Object.defineProperty
+var isPlainFunction = require("type/plain-function/is")
+  , ensureValue     = require("type/value/ensure")
+  , isValue         = require("type/value/is")
+  , map             = require("es5-ext/object/map")
+  , contains        = require("es5-ext/string/#/contains");
+
+var call = Function.prototype.call
+  , defineProperty = Object.defineProperty
   , getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor
-  , getPrototypeOf           = Object.getPrototypeOf
-  , hasOwnProperty           = Object.prototype.hasOwnProperty
-  , cacheDesc                = {
-		configurable: false,
-		enumerable: false,
-		writable: false,
-		value: null
-	}
+  , getPrototypeOf = Object.getPrototypeOf
+  , hasOwnProperty = Object.prototype.hasOwnProperty
+  , cacheDesc = { configurable: false, enumerable: false, writable: false, value: null }
   , define;
 
 define = function (name, options) {
 	var value, dgs, cacheName, desc, writable = false, resolvable, flat;
-	options = Object(validValue(options));
+	options = Object(ensureValue(options));
 	cacheName = options.cacheName;
 	flat = options.flat;
-	if (cacheName == null) cacheName = name;
+	if (!isValue(cacheName)) cacheName = name;
 	delete options.cacheName;
 	value = options.value;
-	resolvable = isCallable(value);
+	resolvable = isPlainFunction(value);
 	delete options.value;
 	dgs = { configurable: Boolean(options.configurable), enumerable: Boolean(options.enumerable) };
 	if (name !== cacheName) {
