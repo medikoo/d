@@ -1,8 +1,13 @@
-# D
+[![Build status][nix-build-image]][nix-build-url]
+[![Windows status][win-build-image]][win-build-url]
+![Transpilation status][transpilation-image]
+[![npm version][npm-image]][npm-url]
+
+# d
 
 ## Property descriptor factory
 
-_Originally derived from [es5-ext](https://github.com/medikoo/es5-ext) package._
+_Originally derived from [d](https://github.com/medikoo/d) package._
 
 Defining properties with descriptors is very verbose:
 
@@ -132,3 +137,11 @@ To report a security vulnerability, please use the [Tidelift security contact](h
 		Tidelift helps make open source sustainable for maintainers while giving companies<br>assurances about security, maintenance, and licensing for their dependencies.
 	</sub>
 </div>
+
+[nix-build-image]: https://semaphoreci.com/api/v1/medikoo-org/d/branches/master/shields_badge.svg
+[nix-build-url]: https://semaphoreci.com/medikoo-org/d
+[win-build-image]: https://ci.appveyor.com/api/projects/status/m0jji0bwq8rfa0ip?svg=true
+[win-build-url]: https://ci.appveyor.com/project/medikoo/d
+[transpilation-image]: https://img.shields.io/badge/transpilation-free-brightgreen.svg
+[npm-image]: https://img.shields.io/npm/v/d.svg
+[npm-url]: https://www.npmjs.com/package/d
